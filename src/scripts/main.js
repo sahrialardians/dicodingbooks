@@ -3,30 +3,20 @@ function main() {
     const baseUrl = "https://web-server-book-dicoding.appspot.com";
 
     const getBook = () => {
-        // tuliskan kode di sini!
-
-        // membuat instance dari XMLHttpRequest
-        const xhr = new XMLHttpRequest;
-        
-        // menetapkan callback jika response success atau error
-        xhr.onload = function (param) {
-            const responseJson = JSON.parse(this.responseText);
-            if (responseJson.error) {
-                showResponseMessage(responseJson.message);
-            } else {
-                renderAllBooks(responseJson.books);
-            }
-        }
-
-        xhr.onerror = function() {
-            showResponseMessage();
-        }
-
-        // membuat GET request dan menetapkan target URL
-        xhr.open("GET", `${baseUrl}/list`);
-
-        // mengirimkan request
-        xhr.send();
+        fetch(`${baseUrl}/list`)
+            .then(response => {
+                return response.json();
+            })
+            .then(responseJson => {
+                if (responseJson.error) {
+                    showResponseMessage(responseJson.message);
+                } else {
+                    renderAllBooks(responseJson.books);
+                }
+            })
+            .catch(error => {
+                showResponseMessage(error);
+            })
     };
 
     const insertBook = (book) => {
