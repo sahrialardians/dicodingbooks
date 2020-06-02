@@ -21,13 +21,13 @@ function main() {
 
     const insertBook = (book) => {
         fetch(`${baseUrl}/add`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application.json",
-                "X-Auth-Token": "12345"
-            },
-            body: JSON.stringify(book)
-        })
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Auth-Token": "12345"
+                },
+                body: JSON.stringify(book)
+            })
             .then(response => {
                 return response.json();
             })
